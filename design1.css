@@ -82,3 +82,16 @@ h1, h2 {
   height: 100%;
   border-radius: 5px;
 }
+
+.qr-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.qr-container p {
+  font-size: 0.9rem;
+  color: #aaa;
+}
