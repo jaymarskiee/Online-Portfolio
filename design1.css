@@ -1,97 +1,449 @@
-body {
+/* ── Reset ── */
+*, *::before, *::after {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   font-family: 'Roboto', sans-serif;
   background: #0d0d0d;
   color: #ffffff;
+  /* push content below fixed nav */
+  padding-top: 56px;
 }
 
-.toggle-btn {
+/* ════════════════════════════
+   TOP NAV (works on ALL sizes)
+   ════════════════════════════ */
+.topnav {
   position: fixed;
-  top: 15px;
-  left: 15px;
-  background: cyan;
-  border: none;
-  padding: 10px 14px;
-  cursor: pointer;
-  font-size: 18px;
-  z-index: 1000;
-}
-
-.sidebar {
-  position: fixed;
-  left: 0;
   top: 0;
-  width: 220px;
-  height: 100%;
+  left: 0;
+  right: 0;
+  height: 56px;
   background: #111;
-  padding-top: 60px;
-  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 1000;
+  border-bottom: 1px solid #222;
 }
 
-.sidebar.collapsed {
-  transform: translateX(-100%);
-}
-
-.sidebar-links {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar-links li {
-  padding: 15px;
-}
-
-.sidebar-links a {
+.nav-brand {
   color: cyan;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 12px;
+  letter-spacing: 1px;
+}
+
+/* Hamburger button — visible on mobile, hidden on desktop */
+.nav-toggle {
+  background: none;
+  border: 1px solid cyan;
+  color: cyan;
+  font-size: 18px;
+  width: 38px;
+  height: 38px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Nav links list */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.nav-links a {
+  color: #ccc;
   text-decoration: none;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
 }
 
+.nav-links a:hover {
+  color: cyan;
+  background: #1a1a1a;
+}
+
+/* Overlay (mobile only) */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 999;
+}
+.nav-overlay.show { display: block; }
+
+/* ── Mobile nav (≤ 640px) ── */
+@media (max-width: 640px) {
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 240px;
+    height: calc(100% - 56px);
+    background: #111;
+    flex-direction: column;
+    gap: 0;
+    padding: 16px 0;
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+    z-index: 1000;
+    border-right: 1px solid #222;
+    margin-left: 0;
+  }
+
+  .nav-links.open { transform: translateX(0); }
+
+  .nav-links li { width: 100%; }
+
+  .nav-links a {
+    display: block;
+    padding: 14px 24px;
+    font-size: 16px;
+    border-radius: 0;
+  }
+  .nav-links a:hover { background: #1e1e1e; }
+}
+
+/* ── Desktop nav (> 640px) ── */
+@media (min-width: 641px) {
+  .nav-toggle  { display: none; }
+  .nav-overlay { display: none !important; }
+  .nav-links   { transform: none !important; position: static; flex-direction: row; }
+}
+
+/* ════════════════════════════
+   MAIN CONTENT
+   ════════════════════════════ */
 .main-content {
-  margin-left: 220px;
-  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
 }
 
+/* ── Cards ── */
 .card-container {
   background: #1a1a1a;
-  padding: 25px;
-  margin-bottom: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px cyan;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 0 14px rgba(0,255,255,0.25);
 }
 
-h1, h2 {
-  color: cyan;
-}
+/* ── Typography ── */
+h1 { font-size: 30px; margin-bottom: 10px; color: cyan; }
+h2 { font-size: 20px; margin-bottom: 18px; color: cyan; }
+h3 { font-size: 15px; color: cyan; margin-bottom: 6px; }
+p  { color: #cccccc; line-height: 1.7; font-size: 15px; }
 
+.accent { color: cyan; }
+
+/* ── Hero ── */
+.hero-card { min-height: 180px; display: flex; align-items: center; }
+.hero-sub  {
+  font-size: 16px;
+  color: #aaaaaa;
+  margin-bottom: 22px;
+  min-height: 26px;
+}
+#cursor { animation: blink 1s infinite; }
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+/* ── Button ── */
 .btn {
+  display: inline-block;
   background: cyan;
   color: black;
-  padding: 10px 15px;
+  padding: 11px 22px;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+  transition: opacity 0.2s;
+  touch-action: manipulation;
 }
+.btn:hover { opacity: 0.85; }
 
+/* ── Skill bars ── */
+.skill-item { margin-bottom: 16px; }
+.skill-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #cccccc;
+}
 .skill-bar {
   background: #333;
   height: 8px;
   border-radius: 5px;
+  overflow: hidden;
 }
-
 .fill {
   background: cyan;
   height: 100%;
   border-radius: 5px;
 }
 
+/* ── Projects grid ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 480px) {
+  .projects-grid { grid-template-columns: 1fr; }
+}
+
+.project-card {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 18px 16px;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.project-card:hover {
+  border-color: cyan;
+  box-shadow: 0 0 10px rgba(0,255,255,0.2);
+}
+.project-card h3 { font-size: 14px; margin-bottom: 8px; }
+.project-card > p {
+  font-size: 13px;
+  color: #aaaaaa;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.project-tag {
+  padding: 3px 9px;
+  background: #222;
+  color: cyan;
+  border: 1px solid #333;
+  border-radius: 4px;
+  font-size: 11px;
+}
+.project-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.project-links a {
+  font-size: 13px;
+  color: cyan;
+  text-decoration: none;
+  padding: 4px 0;
+}
+.project-links a:hover { text-decoration: underline; }
+
+/* Delete button — always visible on mobile (no hover), fades in on desktop */
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,68,68,0.1);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #888;
+  font-size: 13px;
+  padding: 2px 6px;
+  transition: opacity 0.15s, color 0.15s, background 0.15s;
+}
+.delete-btn:hover {
+  color: #ff4444;
+  background: rgba(255,68,68,0.2);
+  border-color: #ff4444;
+}
+/* Desktop: hide until hover */
+@media (min-width: 641px) {
+  .delete-btn { opacity: 0; }
+  .project-card:hover .delete-btn { opacity: 1; }
+}
+
+/* ── Add project button ── */
+.add-project-btn {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px dashed #444;
+  border-radius: 8px;
+  color: #666;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  touch-action: manipulation;
+}
+.add-project-btn:hover,
+.add-project-btn:focus {
+  border-color: cyan;
+  color: cyan;
+  outline: none;
+}
+
+/* ── Contact ── */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.contact-icon { font-size: 17px; }
+.contact-row a {
+  color: cyan;
+  text-decoration: none;
+  font-size: 14px;
+  word-break: break-all;
+}
+.contact-row a:hover { text-decoration: underline; }
+
+/* ── QR code ── */
 .qr-container {
-  margin-top: 20px;
+  margin-top: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
+.qr-container p { font-size: 0.85rem; color: #888; }
 
-.qr-container p {
-  font-size: 0.9rem;
+/* ── Footer ── */
+footer.card-container p {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+}
+
+/* ════════════════════════════
+   MODAL
+   ════════════════════════════ */
+.modal-bg {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 2000;
+  align-items: flex-end;   /* slides up from bottom on mobile */
+  justify-content: center;
+  padding: 0;
+}
+
+@media (min-width: 641px) {
+  .modal-bg { align-items: center; padding: 24px; }
+}
+
+.modal {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 16px 16px 0 0;
+  padding: 24px 20px 32px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 0 24px rgba(0,255,255,0.15);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+@media (min-width: 641px) {
+  .modal { border-radius: 12px; padding: 28px 24px; }
+}
+
+.modal h3 { color: cyan; font-size: 18px; margin-bottom: 18px; }
+
+.field { margin-bottom: 14px; }
+.field label {
+  display: block;
+  font-size: 12px;
   color: #aaa;
+  margin-bottom: 5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  transition: border-color 0.2s;
+  /* Larger tap target on mobile */
+  min-height: 44px;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: cyan;
+}
+.field textarea {
+  height: 80px;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+.modal-btns button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid #444;
+  background: #111;
+  color: #ccc;
+  transition: opacity 0.2s;
+  min-width: 88px;
+  touch-action: manipulation;
+}
+.modal-btns button:hover { opacity: 0.8; }
+.modal-btns button.primary {
+  background: cyan;
+  color: #000;
+  border-color: cyan;
+  font-weight: 700;
+}
+
+/* ── Small phones (≤ 380px) ── */
+@media (max-width: 380px) {
+  .main-content { padding: 20px 12px 40px; }
+  h1 { font-size: 26px; }
+  .card-container { padding: 20px 16px; }
+  .modal-btns { flex-direction: column; }
+  .modal-btns button { width: 100%; }
 }
