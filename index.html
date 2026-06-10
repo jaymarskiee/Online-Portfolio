@@ -3,115 +3,253 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Jaymar's portfolio — Computer Engineering student passionate about web development." />
   <title>Jaymar | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="design1.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
-<button id="menu-toggle" class="toggle-btn">☰</button>
-
-<div class="sidebar collapsed" id="sidebar">
-  <ul class="sidebar-links">
-    <li><a href="#hero">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
+<!-- NAV (mobile top bar + desktop sidebar) -->
+<nav class="topnav" id="topnav">
+  <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">&#9776;</button>
+  <span class="nav-brand">Jaymar</span>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#hero"     class="nav-link">Home</a></li>
+    <li><a href="#about"    class="nav-link">About</a></li>
+    <li><a href="#skills"   class="nav-link">Skills</a></li>
+    <li><a href="#projects" class="nav-link">Projects</a></li>
+    <li><a href="#contact"  class="nav-link">Contact</a></li>
   </ul>
-</div>
+</nav>
 
-<div class="main-content">
+<main class="main-content">
 
-<section id="hero" class="card-container content-section active">
-  <div class="hero-content">
-    <h1>Hello, I'm Jaymar</h1>
-    <p><span id="typed-text"></span><span id="cursor">|</span></p>
+  <!-- HERO -->
+  <section id="hero" class="card-container hero-card">
+    <h1>Hello, I'm <span class="accent">Jaymar</span></h1>
+    <p class="hero-sub"><span id="typed-text"></span><span id="cursor">|</span></p>
     <a href="#projects" class="btn">See My Work</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="card-container">
+    <h2>About Me</h2>
+    <p>I am a Computer Engineering student passionate about building websites and learning programming. I enjoy creating clean, functional web experiences and continuously improving my skills.</p>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="card-container">
+    <h2>Skills</h2>
+    <div class="skill-item">
+      <div class="skill-label"><span>HTML</span><span>90%</span></div>
+      <div class="skill-bar"><div class="fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-label"><span>CSS</span><span>80%</span></div>
+      <div class="skill-bar"><div class="fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-label"><span>JavaScript</span><span>65%</span></div>
+      <div class="skill-bar"><div class="fill" style="width:65%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-label"><span>Python</span><span>50%</span></div>
+      <div class="skill-bar"><div class="fill" style="width:50%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-label"><span>GitHub</span><span>70%</span></div>
+      <div class="skill-bar"><div class="fill" style="width:70%"></div></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="card-container">
+    <h2>My Projects</h2>
+    <div class="projects-grid" id="projects-grid"></div>
+    <button class="add-project-btn" id="add-btn">+ Add Project</button>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="card-container">
+    <h2>Contact</h2>
+    <div class="contact-row">
+      <span class="contact-icon">📧</span>
+      <a href="mailto:jdgucela@universityofbohol.edu.ph">jdgucela@universityofbohol.edu.ph</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">🐙</span>
+      <a href="https://github.com/jaymarskiee" target="_blank" rel="noopener">github.com/jaymarskiee</a>
+    </div>
+    <div class="qr-container">
+      <div id="qrcode"></div>
+      <p>Scan to visit my portfolio</p>
+    </div>
+  </section>
+
+  <footer class="card-container">
+    <p>© 2026 Jaymar. All rights reserved.</p>
+  </footer>
+
+</main>
+
+<!-- ADD PROJECT MODAL -->
+<div class="modal-bg" id="modal" role="dialog" aria-modal="true" aria-label="Add Project">
+  <div class="modal">
+    <h3>Add Project</h3>
+    <div class="field">
+      <label for="p-name">Project Name</label>
+      <input id="p-name" placeholder="e.g. Weather App" autocomplete="off"/>
+    </div>
+    <div class="field">
+      <label for="p-desc">Description</label>
+      <textarea id="p-desc" placeholder="What does this project do?"></textarea>
+    </div>
+    <div class="field">
+      <label for="p-tags">Tech Used (comma separated)</label>
+      <input id="p-tags" placeholder="HTML, CSS, JavaScript" autocomplete="off"/>
+    </div>
+    <div class="field">
+      <label for="p-github">GitHub Link (optional)</label>
+      <input id="p-github" placeholder="https://github.com/..." type="url"/>
+    </div>
+    <div class="field">
+      <label for="p-demo">Live Demo Link (optional)</label>
+      <input id="p-demo" placeholder="https://..." type="url"/>
+    </div>
+    <div class="modal-btns">
+      <button id="cancel-btn">Cancel</button>
+      <button class="primary" id="save-btn">Save Project</button>
+    </div>
   </div>
-</section>
-
-<section id="about" class="card-container content-section">
-  <h2>About Me</h2>
-  <p>I am a Computer Engineering student passionate about building websites and learning programming.</p>
-</section>
-
-  <section id="projects" class="card-container content-section">
-  <h2>My Projects</h2>
-  <div class="project-item">
-    <h3>Portfolio Website</h3>
-  </div>
-</section>
-
-<section
-<section id="contact" class="card-container content-section">
-  <h2>Contact</h2>
-  <p>Email:jdgucela@universityofbohol.edu.ph</p>
-</section>
-
-<footer class="card-container">
-  <p>© 2026 Jaymar. All rights reserved.</p>
-</footer>
-
 </div>
 
 <script>
-const phrases = [
-  "I'm a Computer Engineering Student.",
-  "I love building websites.",
-  "Future Engineer."
-];
-
-let i = 0, j = 0, isDeleting = false;
-const typedText = document.getElementById("typed-text");
-
-function type() {
-  let currentPhrase = phrases[i];
-  if (!isDeleting && j <= currentPhrase.length) {
-    typedText.textContent = currentPhrase.slice(0, j++);
-    setTimeout(type, 90);
-  } else if (isDeleting && j >= 0) {
-    typedText.textContent = currentPhrase.slice(0, j--);
-    setTimeout(type, 50);
-  } else {
-    isDeleting = !isDeleting;
-    if (!isDeleting) i = (i + 1) % phrases.length;
-    setTimeout(type, 800);
+  /* ── Typing animation ── */
+  const phrases = [
+    "I'm a Computer Engineering Student.",
+    "I love building websites.",
+    "Future Engineer."
+  ];
+  let pi = 0, pj = 0, del = false;
+  const tt = document.getElementById("typed-text");
+  function type() {
+    const cp = phrases[pi];
+    if (!del && pj <= cp.length) {
+      tt.textContent = cp.slice(0, pj++);
+      setTimeout(type, 90);
+    } else if (del && pj >= 0) {
+      tt.textContent = cp.slice(0, pj--);
+      setTimeout(type, 50);
+    } else {
+      del = !del;
+      if (!del) pi = (pi + 1) % phrases.length;
+      setTimeout(type, 800);
+    }
   }
-}
-type();
+  type();
 
-const toggleBtn = document.getElementById("menu-toggle");
-const sidebar = document.getElementById("sidebar");
-toggleBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("collapsed");
-});
-</script>
+  /* ── Mobile nav ── */
+  const navToggle  = document.getElementById("nav-toggle");
+  const navLinks   = document.getElementById("nav-links");
+  const navOverlay = document.getElementById("nav-overlay");
 
-  <!-- In <head> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  function openNav()  { navLinks.classList.add("open"); navOverlay.classList.add("show"); }
+  function closeNav() { navLinks.classList.remove("open"); navOverlay.classList.remove("show"); }
 
-<!-- In your contact section -->
-<div class="qr-container">
-  <p>Scan to visit my portfolio:</p>
-  <div id="qrcode"></div>
-</div>
+  navToggle.addEventListener("click", () =>
+    navLinks.classList.contains("open") ? closeNav() : openNav()
+  );
+  navOverlay.addEventListener("click", closeNav);
+  document.querySelectorAll(".nav-link").forEach(a =>
+    a.addEventListener("click", closeNav)
+  );
 
-<!-- In your <script> at the bottom -->
-<script>
+  /* ── Projects (saved in localStorage) ── */
+  const STORAGE_KEY = "jaymar_projects_v2";
+  let projects = [];
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) projects = JSON.parse(saved);
+  } catch (e) {}
+
+  if (!projects.length) {
+    projects = [{
+      id: 1,
+      name: "Portfolio Website",
+      desc: "Personal portfolio built with HTML & CSS featuring a responsive nav and typing animation.",
+      tags: ["HTML", "CSS", "JavaScript"],
+      github: "https://github.com/jaymarskiee/Online-Portfolio",
+      demo: ""
+    }];
+  }
+
+  function saveProjects() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(projects)); } catch (e) {}
+  }
+
+  function renderProjects() {
+    const grid = document.getElementById("projects-grid");
+    grid.innerHTML = "";
+    projects.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "project-card";
+      const tags  = p.tags.map(t => `<span class="project-tag">${t}</span>`).join("");
+      const links = (p.github ? `<a href="${p.github}" target="_blank" rel="noopener">⌥ GitHub</a>` : "")
+                  + (p.demo   ? `<a href="${p.demo}"   target="_blank" rel="noopener">↗ Live</a>`   : "");
+      card.innerHTML = `
+        <button class="delete-btn" data-id="${p.id}" title="Remove project">✕</button>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="tag-row">${tags}</div>
+        ${links ? `<div class="project-links">${links}</div>` : ""}
+      `;
+      grid.appendChild(card);
+    });
+    grid.querySelectorAll(".delete-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (!confirm("Remove this project?")) return;
+        projects = projects.filter(p => p.id != btn.dataset.id);
+        saveProjects();
+        renderProjects();
+      });
+    });
+  }
+  renderProjects();
+
+  /* ── Modal ── */
+  const modal = document.getElementById("modal");
+  document.getElementById("add-btn").addEventListener("click",    () => modal.style.display = "flex");
+  document.getElementById("cancel-btn").addEventListener("click", () => modal.style.display = "none");
+  modal.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+
+  document.getElementById("save-btn").addEventListener("click", () => {
+    const name = document.getElementById("p-name").value.trim();
+    if (!name) { alert("Please enter a project name."); return; }
+    projects.push({
+      id:     Date.now(),
+      name,
+      desc:   document.getElementById("p-desc").value.trim(),
+      tags:   document.getElementById("p-tags").value.split(",").map(t => t.trim()).filter(Boolean),
+      github: document.getElementById("p-github").value.trim(),
+      demo:   document.getElementById("p-demo").value.trim()
+    });
+    saveProjects();
+    renderProjects();
+    modal.style.display = "none";
+    ["p-name","p-desc","p-tags","p-github","p-demo"].forEach(id => document.getElementById(id).value = "");
+  });
+
+  /* ── QR Code ── */
   new QRCode(document.getElementById("qrcode"), {
-    text: "https://jaymarskiee.github.io/Online-Portfolio/",
-    width: 150,
-    height: 150,
-    colorDark: "#000000",
-    colorLight: "#ffffff",
+    text:       "https://jaymarskiee.github.io/Online-Portfolio/",
+    width:      130,
+    height:     130,
+    colorDark:  "#00ffff",
+    colorLight: "#1a1a1a"
   });
 </script>
-
 </body>
 </html>
-
-
-
-
-
