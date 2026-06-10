@@ -217,8 +217,23 @@ p  { color: #cccccc; line-height: 1.7; font-size: 15px; }
   .projects-grid { grid-template-columns: 1fr; }
 }
 
-.project-card {
-  background: #111;
+.project-card--clickable {
+  cursor: pointer;
+}
+.project-card--clickable:hover {
+  border-color: cyan;
+  box-shadow: 0 0 10px rgba(0,255,255,0.2);
+}
+.card-click-hint {
+  display: inline-block;
+  font-size: 11px;
+  color: cyan;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+.project-card--clickable:hover .card-click-hint {
+  opacity: 1;
+}
   border: 1px solid #2a2a2a;
   border-radius: 10px;
   padding: 18px 16px;
