@@ -168,14 +168,24 @@
   } catch (e) {}
 
   if (!projects.length) {
-    projects = [{
-      id: 1,
-      name: "Portfolio Website",
-      desc: "Personal portfolio built with HTML & CSS featuring a responsive nav and typing animation.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      github: "https://github.com/jaymarskiee/Online-Portfolio",
-      demo: ""
-    }];
+    projects = [
+      {
+        id: 1,
+        name: "Portfolio Website",
+        desc: "Personal portfolio built with HTML & CSS featuring a responsive nav and typing animation.",
+        tags: ["HTML", "CSS", "JavaScript"],
+        github: "https://github.com/jaymarskiee/Online-Portfolio",
+        demo: ""
+      },
+      {
+        id: 2,
+        name: "FocusCrew Photography",
+        desc: "Full photography studio website for a Bohol-based studio. Clients can browse services, book shoots online, and register accounts. Includes an admin dashboard to manage bookings and users, with email verification via PHPMailer.",
+        tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+        github: "",
+        demo: ""
+      }
+    ];
   }
 
   function saveProjects() {
