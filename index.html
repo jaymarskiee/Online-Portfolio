@@ -88,6 +88,26 @@ toggleBtn.addEventListener("click", () => {
 });
 </script>
 
+  <!-- In <head> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- In your contact section -->
+<div class="qr-container">
+  <p>Scan to visit my portfolio:</p>
+  <div id="qrcode"></div>
+</div>
+
+<!-- In your <script> at the bottom -->
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://jaymarskiee.github.io/Online-Portfolio/",
+    width: 150,
+    height: 150,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+  });
+</script>
+
 </body>
 </html>
 
